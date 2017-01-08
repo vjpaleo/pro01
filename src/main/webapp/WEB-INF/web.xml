@@ -6,16 +6,16 @@
   <display-name>PRO 01</display-name>
   
   <servlet>
-	  <servlet-name>proServ01</servlet-name>
+	  <servlet-name>pro01</servlet-name>
 	  <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 	  <init-param>
 	  	<param-name>contextConfiguration</param-name>
-	  	<param-value>/WEB-INF/config/pro01-servletConfig.xml</param-value>
+	  	<param-value>/WEB-INF/pro01-servlet.xml</param-value>
 	  </init-param>
   </servlet>
   
   <servlet-mapping>
-  	<servlet-name>proServ01</servlet-name>
+  	<servlet-name>pro01</servlet-name>
   	<url-pattern>*.html</url-pattern>
   </servlet-mapping>
   
