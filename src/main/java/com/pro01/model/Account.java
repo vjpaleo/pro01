@@ -1,11 +1,27 @@
 package com.pro01.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+
 public class Account {
 	
+	@NotNull
+	@Size(min=5, max=30)
 	private String firstName;
+	
+	@NotNull
+	@Size(min=5, max=30)
 	private String lastName;
+	
+	@Email
 	private String email;
+	
 	private String address;
+	
+	@NotNull @Min(15)
+	private Integer age = 15;
 	
 	public String getFirstName() {
 		return firstName;
