@@ -4,7 +4,10 @@ import java.util.Random;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.pro01.model.Account;
 
 @Controller
 public class homeController {
@@ -26,6 +29,13 @@ public class homeController {
 		model.addAttribute("randomQuote", currentQuote);
 		
 		return "quote";
+	}
+	
+	@RequestMapping(value="/createAccount")
+	public String createAccount(@ModelAttribute ("aNewAccount") Account account) {
+		
+		System.out.println(account.getFirstName() + " " + account.getLastName());
+		return "createAccount";
 	}
 
 }
