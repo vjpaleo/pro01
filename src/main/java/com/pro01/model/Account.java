@@ -1,5 +1,6 @@
 package com.pro01.model;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -23,6 +24,12 @@ public class Account {
 	@NotNull @Min(15)
 	private Integer age = 15;
 	
+	public Integer getAge() {
+		return age;
+	}
+	public void setAge(Integer age) {
+		this.age = age;
+	}
 	public String getFirstName() {
 		return firstName;
 	}

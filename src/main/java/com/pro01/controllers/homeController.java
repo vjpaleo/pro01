@@ -2,10 +2,15 @@ package com.pro01.controllers;
 
 import java.util.Random;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pro01.model.Account;
 
@@ -31,11 +36,39 @@ public class homeController {
 		return "quote";
 	}
 	
-	@RequestMapping(value="/createAccount")
-	public String createAccount(@ModelAttribute ("aNewAccount") Account account) {
+	@RequestMapping(value="/createAccount", method=RequestMethod.GET)
+	public String createAccount(@Valid @ModelAttribute ("aNewAccount") Account account, BindingResult result) {
 		
-		System.out.println(account.getFirstName() + " " + account.getLastName());
 		return "createAccount";
+	}
+	
+	@RequestMapping(value="/accountCreated", method=RequestMethod.POST)
+	public String accountCreated(@Valid @ModelAttribute ("aNewAccount") Account account, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			System.out.println("There are errors.");
+			return "redirect:createAccount";
+		}
+		System.out.println(account.getFirstName() + " " + account.getLastName() + " " + account.getEmail());
+		return "success";
+	}
+	
+	@ModelAttribute
+	public void setUserDetails (@RequestParam ("userName") String userName, Model model) {
+		
+		model.addAttribute("userName", userName);
+		
+		String userRole = "undefined";
+		
+		if ( userName == "Vijay") {
+			userRole = "Admin";
+		} else {
+			userRole = "Guest";
+		}
+		
+		model.addAttribute("userRole", userRole);
+		
+		System.out.println(userName + " " + userRole);
 	}
 
 }
