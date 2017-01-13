@@ -9,7 +9,7 @@
 <body>
 	<h1>Add Account Details:</h1>
 	
-	<form:form commandName="aNewAccount" method="post" action="accountCreated.html">
+	<form:form commandName="aNewAccount" method="post" action="doCreate.html">
 	  First name:<br>
 	  <form:input type="text" name="firstname" path="firstName"></form:input>
 	  <form:errors path="firstName"></form:errors><br>

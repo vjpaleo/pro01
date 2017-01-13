@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.pro01.model.Account;
 
 @Controller
+@SessionAttributes("aNewAccount")
 public class homeController {
 	
 	private String[] quotes = {
@@ -38,22 +40,24 @@ public class homeController {
 	
 	@RequestMapping(value="/createAccount", method=RequestMethod.GET)
 	public String createAccount(@Valid @ModelAttribute ("aNewAccount") Account account, BindingResult result) {
-		
+		System.out.println(account.getFirstName() + " " + account.getLastName() + " " + account.getEmail());
 		return "createAccount";
 	}
 	
-	@RequestMapping(value="/accountCreated", method=RequestMethod.POST)
+	@RequestMapping(value="/doCreate", method=RequestMethod.POST)
+	public String doCreate(@ModelAttribute ("aNewAccount") Account account) {
+		System.out.println("Creating the account:" + account.getFirstName() + " " + account.getLastName() + " " + account.getEmail());
+		return "redirect:accountCreated.html";
+	}
+	
+	@RequestMapping(value="accountCreated", method=RequestMethod.GET)
 	public String accountCreated(@Valid @ModelAttribute ("aNewAccount") Account account, BindingResult result) {
 		
-		if (result.hasErrors()) {
-			System.out.println("There are errors.");
-			return "redirect:createAccount";
-		}
-		System.out.println(account.getFirstName() + " " + account.getLastName() + " " + account.getEmail());
+		System.out.println("Welcome " + account.getFirstName() + " " + account.getLastName() + " " + account.getEmail());
 		return "success";
 	}
 	
-	@ModelAttribute
+	
 	public void setUserDetails (@RequestParam ("userName") String userName, Model model) {
 		
 		model.addAttribute("userName", userName);
@@ -69,6 +73,16 @@ public class homeController {
 		model.addAttribute("userRole", userRole);
 		
 		System.out.println(userName + " " + userRole);
+	}
+	
+	@ModelAttribute
+	public void addAccountToModel(Model model) {
+		
+		if(!model.containsAttribute("aNewAccount")) {
+			Account a = new Account();
+			model.addAttribute("aNewAccount", a);
+		}
+		
 	}
 
 }
