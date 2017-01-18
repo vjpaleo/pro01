@@ -1,5 +1,6 @@
 package com.pro01.controllers;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.validation.Valid;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.pro01.model.Account;
+import com.pro01.model.FruitGroup;
+import com.pro01.model.FruitGroupDAO;
 
 @Controller
 @SessionAttributes("aNewAccount")
@@ -55,6 +58,19 @@ public class homeController {
 		
 		System.out.println("Welcome " + account.getFirstName() + " " + account.getLastName() + " " + account.getEmail());
 		return "success";
+	}
+	
+	@RequestMapping(value="/fg", method=RequestMethod.GET)
+	public String getFoodGroups(@ModelAttribute ("aFoodGroupDAO") FruitGroupDAO fruitGroupDao) {
+		
+		List<FruitGroup> myFoodGroupList = fruitGroupDao.getFoodGroups();
+		
+		for(FruitGroup fg: myFoodGroupList) {
+			System.out.println(fg.toString());
+		}
+		
+		return "listFoodGroups";
+		
 	}
 	
 	
