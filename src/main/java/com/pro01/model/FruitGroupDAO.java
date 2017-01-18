@@ -27,7 +27,6 @@ public class FruitGroupDAO {
 				fg.setDescription(rs1.getString("description"));
 				return fg;
 			}
-			
 		});
 		
 	}
